@@ -1,0 +1,6 @@
+{
+  "devDependencies": {
+    "serverless-plugin-common-excludes": "^4.0.0",
+    "serverless-plugin-include-dependencies": "^5.1.0"
+  }
+}

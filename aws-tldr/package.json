@@ -1,0 +1,11 @@
+{
+  "name": "aws-squeezy",
+  "version": "1.0.0",
+  "dependencies": {
+    "@aws-sdk/client-secrets-manager": "^3.332.0",
+    "@mozilla/readability": "^0.4.4",
+    "dom-readability": "^1.0.2",
+    "domino": "^2.1.6",
+    "node-fetch": "2.6.1"
+  }
+}
