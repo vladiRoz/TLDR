@@ -1,6 +1,6 @@
-const {createDocument} = require("domino");
-const {Parse} = require("dom-readability");
-const fetch = require('node-fetch');
+import { createDocument } from "domino";
+import { Parse } from "dom-readability";
+import fetch from 'node-fetch';
 
 const fetchMyDocument = async (url) => {
     let response = await fetch(url);
@@ -8,7 +8,7 @@ const fetchMyDocument = async (url) => {
     return response.text(); // Replaces body with response
 }
 
-const extractMainContent = async (url) => {
+export const extractMainContent = async (url) => {
     try {
         const html = await fetchMyDocument(url);
         if (html) {
@@ -24,5 +24,3 @@ const extractMainContent = async (url) => {
 
     return '';
 }
-
-module.exports.extractMainContent = extractMainContent;

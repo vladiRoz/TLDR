@@ -1,4 +1,5 @@
 node_modules
 aws-tldr/.serverless
 aws-tldr/node_modules
+aws-tldr/dist
 .idea/
