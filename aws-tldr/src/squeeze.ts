@@ -1,10 +1,10 @@
-const { extractMainContent } = require("./scripts/utils");
-const {callOpenApi} = require("./scripts/utils.openai");
-const { SecretsManagerClient, GetSecretValueCommand } = require("@aws-sdk/client-secrets-manager");
+import { extractMainContent } from "./scripts/utils";
+import  { callOpenApi } from "./scripts/utils.openai";
+import { SecretsManagerClient, GetSecretValueCommand } from "@aws-sdk/client-secrets-manager";
 
 const secret_name = "my-api-secrets";
 
-module.exports.squeeze = async (event) => {
+export async function squeeze(event) {
 
     let url;
     if (event.url) {

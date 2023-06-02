@@ -1,8 +1,5 @@
-const fetch = require("node-fetch");
-const callOpenApi = async (extractedText, openApiKey) => {
-
-    console.log('callOpenApi');
-
+import fetch from "node-fetch";
+export const callOpenApi = async (extractedText, openApiKey) => {
     const url = "https://api.openai.com/v1/chat/completions";
 
     const data = {
@@ -19,11 +16,7 @@ const callOpenApi = async (extractedText, openApiKey) => {
         body: JSON.stringify(data),
     }
 
-    console.log('callOpenApi fetching');
-
     const response = await fetch(url, params);
-
-    console.log('callOpenApi fetch return');
 
     const jsonData = await response.json();
     const { choices } = jsonData;
@@ -34,5 +27,3 @@ const callOpenApi = async (extractedText, openApiKey) => {
 
     return '';
 }
-
-module.exports.callOpenApi = callOpenApi;

@@ -1,4 +1,4 @@
-module.exports.hello = async (event) => {
+export async function hello(event){
     return {
         statusCode: 300,
         body: JSON.stringify(
