@@ -2,6 +2,8 @@
   "name": "aws-squeezy",
   "version": "1.0.0",
   "scripts": {
+    "deploy": "yarn compile && sls deploy -f squeeze",
+    "deployAll": "yarn compile && sls deploy",
     "lint": "gts lint",
     "clean": "gts clean",
     "compile": "tsc",
