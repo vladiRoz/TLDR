@@ -57,7 +57,6 @@ chrome.runtime.onMessage.addListener(
         console.log(sender.tab ? "from a content script:" + sender.tab.url : "from the extension");
         if (request.action === 'article') {
             // removeSpinner();
-            console.log('request', request);
             showSummery(request.data);
         } else if (request.action === 'inflight'){
             console.log('inflight');

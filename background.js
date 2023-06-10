@@ -26,7 +26,7 @@ const summerize = async (url) => {
         const response = await fetch(squeezeUrl, params);
         const jsonData = await response.json();
         if (jsonData) {
-            return jsonData.data;
+            return jsonData;
         }
     } catch (e) {
         console.log('api error', e);
@@ -59,35 +59,47 @@ chrome.action.onClicked.addListener(async (tab) => {
         counter++;
     }, 200);
 
-    // const response = await summerize(tab.url);
+    console.log('calling summerize');
+    // TODO add types to response
+    const response = await summerize(tab.url);
 
     // await chrome.action.setBadgeText({
     //     tabId: tab.id,
     //     text: "Processing",
     // });
 
-    const response = await new Promise((resolve) =>{
-        setTimeout(() => {
-            resolve({
-                originalLength: 2000,
-                summeryLength: 200,
-                summery: 'sending to content The recent slide of Deutsche Bank shares has reignited concerns among investors about the global banking system, leading some to speculate that we may be facing another financial crisis. This time, however, we are more prepared; commercial banks are too big to fail and governments will undoubtedly bail them out. Bitcoin, with its limited supply and resistance against seizure, is seen as a viable alternative to fiat currencies that are inflating away. The recent rise in bitcoin\'s price, particularly from early March, may be a result of investors seeking a hedge against the fall of the US dollar, as well as increasing adoption in the developing world. But widespread adoption will take time, and it\'s crucial for bitcoin\'s advocates to focus on educating different audiences about its advantages and practical uses. The goal should be slow and steady adoption, rather than a sudden surge that could lead to widespread value destruction and government intervention.'
-            });
-        }, 1000);
-    });
+    // const response = await new Promise((resolve) =>{
+    //     setTimeout(() => {
+    //         resolve({
+    //             originalLength: 2000,
+    //             summeryLength: 200,
+    //             summery: 'sending to content The recent slide of Deutsche Bank shares has reignited concerns among investors about the global banking system, leading some to speculate that we may be facing another financial crisis. This time, however, we are more prepared; commercial banks are too big to fail and governments will undoubtedly bail them out. Bitcoin, with its limited supply and resistance against seizure, is seen as a viable alternative to fiat currencies that are inflating away. The recent rise in bitcoin\'s price, particularly from early March, may be a result of investors seeking a hedge against the fall of the US dollar, as well as increasing adoption in the developing world. But widespread adoption will take time, and it\'s crucial for bitcoin\'s advocates to focus on educating different audiences about its advantages and practical uses. The goal should be slow and steady adoption, rather than a sudden surge that could lead to widespread value destruction and government intervention.'
+    //         });
+    //     }, 1000);
+    // });
 
     chrome.action.setBadgeText({ text: '' });
     clearInterval(spinnerInterval);
 
-    console.log("sending to content", response);
-    await sendMessageToTab(tab, {
-        action: 'article',
-        data: {
-            summery: response.summery,
-            originalLength: response.originalLength,
-            summeryLength: response.summeryLength,
+    console.log("response", response);
+    if (response) {
+        const { success, data } = response;
+        if (success) {
+            await sendMessageToTab(tab, {
+                action: 'article',
+                data: {
+                    summery: data.summery,
+                    originalLength: data.originalLength,
+                    summeryLength: data.summeryLength,
+                }
+            });
+        } else {
+            console.log("unsuccessful call", data.message);
         }
-    });
+    } else {
+        console.log("empty response");
+    }
+
 
     // if (nextState === "ON") {
     //     // Insert the CSS file when the user turns the extension on

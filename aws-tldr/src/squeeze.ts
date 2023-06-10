@@ -4,6 +4,8 @@ import { SecretsManagerClient, GetSecretValueCommand } from "@aws-sdk/client-sec
 
 const secret_name = "my-api-secrets";
 
+// TODO add script compile and deploy
+
 export async function squeeze(event) {
 
     let url;
@@ -55,7 +57,10 @@ export async function squeeze(event) {
             statusCode: 400,
             body: JSON.stringify(
                 {
-                    data: 'failed loading secrets',
+                    success: false,
+                    data: {
+                      message: 'failed loading secrets',
+                    },
                 },
                 null,
                 2
@@ -66,6 +71,22 @@ export async function squeeze(event) {
     const { openApiKey } = JSON.parse(secret);
 
     const extractedText = await extractMainContent(url);
+    if (!extractedText) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify(
+          {
+            success: false,
+            data: {
+              message: 'failed to extract',
+            },
+          },
+          null,
+          2
+        ),
+      };
+    }
+
     const summery = await callOpenApi(extractedText, openApiKey);
 
     const wordMatchRegExp = /[^\s]+/g;
@@ -80,11 +101,12 @@ export async function squeeze(event) {
         statusCode: 200,
         body: JSON.stringify(
             {
-                data: {
-                    summery,
-                    originalLength: extractedTextWordsCount,
-                    summeryLength: summeryWordsCount,
-                },
+              success: true,
+              data: {
+                  summery,
+                  originalLength: extractedTextWordsCount,
+                  summeryLength: summeryWordsCount,
+              },
             },
             null,
             2
