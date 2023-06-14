@@ -85,14 +85,18 @@ chrome.action.onClicked.addListener(async (tab) => {
     if (response) {
         const { success, data } = response;
         if (success) {
-            await sendMessageToTab(tab, {
-                action: 'article',
-                data: {
-                    summery: data.summery,
-                    originalLength: data.originalLength,
-                    summeryLength: data.summeryLength,
-                }
-            });
+            try {
+                await sendMessageToTab(tab, {
+                    action: 'article',
+                    data: {
+                        summery: data.summery,
+                        originalLength: data.originalLength,
+                        summeryLength: data.summeryLength,
+                    }
+                });
+            } catch (e) {
+                console.log('sendMessageToTab error', e)
+            }
         } else {
             console.log("unsuccessful call", data.message);
         }

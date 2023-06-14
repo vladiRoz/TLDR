@@ -4,7 +4,7 @@ export const callOpenApi = async (extractedText, openApiKey) => {
 
     const data = {
         "model": "gpt-3.5-turbo",
-        "messages": [{"role": "user", "content": extractedText}]
+        "messages": [{"role": "user", "content": `Summarize: ${extractedText}`}]
     };
 
     const params = {

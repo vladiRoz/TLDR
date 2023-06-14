@@ -4,7 +4,14 @@ import { SecretsManagerClient, GetSecretValueCommand } from "@aws-sdk/client-sec
 
 const secret_name = "my-api-secrets";
 
-// TODO add script compile and deploy
+// btc article
+// sls invoke local -f squeeze --data '{"url":"https://www.coindesk.com/consensus-magazine/2023/04/01/balaji-srinivasans-1m-bitcoin-bet-could-be-right-but-i-hope-hes-wrong/?outputType=amp"}'
+
+// basic html short article
+// sls invoke local -f squeeze --data '{"url":"https://www.freecodecamp.org/the-fastest-web-page-on-the-internet"}'
+
+// 9news
+// sls invoke local -f squeeze --data '{"url":"https://www.9news.com.au/national/katy-gallagher-senate-statement-denies-misleading-parliament-brittany-higgins-allegations/c410f1cf-b78e-44f5-88e7-14d84e24112b"}'
 
 export async function squeeze(event) {
 
@@ -70,21 +77,24 @@ export async function squeeze(event) {
 
     const { openApiKey } = JSON.parse(secret);
 
-    const extractedText = await extractMainContent(url);
-    if (!extractedText) {
-      return {
-        statusCode: 400,
-        body: JSON.stringify(
-          {
-            success: false,
-            data: {
-              message: 'failed to extract',
+    let extractedText;
+    try {
+      extractedText = await extractMainContent(url);
+    } catch (e) {
+      console.log('extractMainContent error', e);
+        return {
+          statusCode: 400,
+          body: JSON.stringify(
+            {
+              success: false,
+              data: {
+                message: 'failed to extract',
+              },
             },
-          },
-          null,
-          2
-        ),
-      };
+            null,
+            2
+          ),
+        };
     }
 
     const summery = await callOpenApi(extractedText, openApiKey);
