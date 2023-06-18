@@ -39,7 +39,7 @@ export async function squeeze(event) {
         };
     }
 
-    console.log('url', url)
+    console.log('url', url);
 
     const client = new SecretsManagerClient({
         region: "us-east-1",

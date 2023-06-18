@@ -19,13 +19,8 @@ export const extractMainContent = async (url) => {
     const html = await fetchMyDocument(url);
     assert(html, 'fetch issue');
     if (html) {
-      // TODO read about customise jsdom at:
-      // https://www.npmjs.com/package/jsdom
-      // maybe there is shorter way to achieve this
       const document = new JSDOM(html).window.document;
       const htmlContent = new Readability(document).parse();
-      // TODO I can run htmlContent.length
-      // instead of getting the count later, check if better
         assert(htmlContent, 'parse issue');
         if (htmlContent?.content) {
             const document = createDocument(htmlContent.content);
