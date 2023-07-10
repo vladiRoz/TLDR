@@ -13,6 +13,9 @@ const secret_name = "my-api-secrets";
 // 9news
 // sls invoke local -f squeeze --data '{"url":"https://www.9news.com.au/national/katy-gallagher-senate-statement-denies-misleading-parliament-brittany-higgins-allegations/c410f1cf-b78e-44f5-88e7-14d84e24112b"}'
 
+// moores
+// sls invoke local -f squeeze --data '{"url":"https://moores.samaltman.com"}'
+
 export async function squeeze(event) {
 
     let url;
