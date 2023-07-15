@@ -2,11 +2,9 @@ console.log("This is a popup!");
 
 document.addEventListener('DOMContentLoaded', function() {
 
-    const loadingElement = document.getElementById('loading');
-    const popupElement = document.getElementById('popup');
-
-    loadingElement.style.display = 'block';
-    popupElement.style.display = 'none';
+    const loadingElement = document.getElementById('loading-container');
+    const popupElement = document.getElementById('content');
+    const header = document.getElementById('header-container');
 
     chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
         const currentTab = tabs[0];
@@ -25,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 loadingElement.style.display = 'none';
                 popupElement.style.display = 'flex';
+                header.style.display = 'flex';
 
                 document.getElementById('header-title').innerText = `Title`;
                 const readingTime = Math.round((originalLength - summeryLength) / 200);
