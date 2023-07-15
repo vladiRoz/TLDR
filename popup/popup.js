@@ -26,8 +26,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 loadingElement.style.display = 'none';
                 popupElement.style.display = 'flex';
 
+                document.getElementById('header-title').innerText = `Title`;
                 const readingTime = Math.round((originalLength - summeryLength) / 200);
-                document.getElementById('header').innerText = `⏱ saved ${readingTime} min read`;
+                document.getElementById('header-text').innerText = ` saved ${readingTime} min read`;
                 document.getElementById('content').innerText = summery;
 
             } else if (responseEventType === 'inflight') {

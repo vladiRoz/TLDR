@@ -5,14 +5,15 @@
     <style>
         * {
             margin: 0;
+            box-sizing: border-box;
+            font-size: 16px;
         }
-        body {
+        .container {
             width: 600px;
             height: 600px;
             background-color: aqua;
             flex: 1;
             display: flex;
-            box-sizing: border-box;
         }
         .popup {
             background-color: #3498db;
@@ -29,6 +30,16 @@
             padding: 10px;
             background-color: #f2f2f2;
             font-weight: bold;
+            font-size: 1.5em;
+        }
+        .header-title {
+            margin-bottom: 5px;
+        }
+        .header-clock {
+            margin-right: 0.5em;
+        }
+        .header-saved-time {
+            display: flex;
         }
         .content {
             padding: 10px;
@@ -38,15 +49,24 @@
             padding: 10px;
             background-color: #f2f2f2;
         }
+
     </style>
 </head>
 <script src="popup.js"></script>
 <body>
-    <div id="loading" class="loading">Loading...</div>
-    <div id="popup" class="popup" style="display: none;">
-        <div id="header" class="header"></div>
-        <div id="content" class="content"></div>
-        <div id="footer" class="footer">footer</div>
+    <div id="container" class="container">
+        <div id="loading" class="loading">Loading...</div>
+        <div id="popup" class="popup" style="display: none;">
+            <div id="header" class="header">
+                <div id="header-title" class="header-title"></div>
+                <div class="header-saved-time">
+                    <div id="header-clock" class="header-clock">&#128337; </div>
+                    <div id="header-text"></div>
+                </div>
+            </div>
+            <div id="content" class="content"></div>
+            <div id="footer" class="footer">footer</div>
+        </div>
     </div>
 </body>
 </html>
