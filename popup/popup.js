@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 document.getElementById('header-title').innerText = `Title`;
                 const readingTime = Math.round((originalLength - summeryLength) / 200);
-                document.getElementById('header-text').innerText = ` saved ${readingTime} min read`;
+                document.getElementById('header-subtitle-text').innerText = ` saved ${readingTime} min read`;
                 document.getElementById('content').innerText = summery;
 
             } else if (responseEventType === 'inflight') {

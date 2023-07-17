@@ -15,7 +15,6 @@
             display: flex;
         }
         .popup {
-            background-color: aliceblue;
             background-color: #f2f2f2;
             display: flex;
             flex: 1;
@@ -36,7 +35,7 @@
         .header {
             display: flex;
             padding: 10px;
-            background-color: aliceblue;
+            background-color: skyblue;
             font-weight: bold;
             font-size: 1.5em;
             height: 3em;
@@ -50,10 +49,10 @@
         .header-title {
             margin-bottom: auto;
         }
-        .header-clock {
+        .header-subtitle-clock {
             margin-right: 0.5em;
         }
-        .header-saved-time {
+        .header-subtitle {
             display: flex;
         }
         .content {
@@ -62,7 +61,7 @@
         }
         .footer {
             padding: 10px;
-            background-color: aliceblue;
+            background-color: skyblue;
         }
 
     </style>
@@ -74,9 +73,9 @@
             <div id="header" class="header">
                 <div id="header-container" class="header-container" style="display: none;">
                     <div id="header-title" class="header-title"></div>
-                    <div class="header-saved-time">
-                        <div id="header-clock" class="header-clock">&#128337; </div>
-                        <div id="header-text"></div>
+                    <div class="header-subtitle">
+                        <div id="header-subtitle-clock" class="header-subtitle-clock">&#128337; </div>
+                        <div id="header-subtitle-text"></div>
                     </div>
                 </div>
             </div>
