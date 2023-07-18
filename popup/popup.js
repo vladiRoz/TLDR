@@ -25,7 +25,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 popupElement.style.display = 'flex';
                 header.style.display = 'flex';
 
-                document.getElementById('header-title').innerText = `Title`;
                 const readingTime = Math.round((originalLength - summeryLength) / 200);
                 document.getElementById('header-subtitle-text').innerText = ` saved ${readingTime} min read`;
                 document.getElementById('content').innerText = summery;

@@ -29,7 +29,7 @@
             justify-content: center;
         }
         .loading {
-            font-size: 20px;
+            font-size: 1.5em;
             color: #555;
         }
         .header {
@@ -44,26 +44,40 @@
             display: flex;
             flex: 1;
             flex-direction: column;
-            justify-content: space-evenly;
-        }
-        .header-title {
-            margin-bottom: auto;
-        }
-        .header-subtitle-clock {
-            margin-right: 0.5em;
+            justify-content: flex-end;
         }
         .header-subtitle {
             display: flex;
+            align-items: center;
+        }
+        .header-subtitle-clock {
+            margin-right: 0.5em;
+            margin-top: 3px;
+        }
+        .header-subtitle-text {
+            font-size: 0.9em;
+            font-weight: normal;
+        }
+        .header-logo-container {
+            align-self: center;
+            width: 400px;
+            height: 300px;
+            overflow: hidden;
+        }
+        .header-logo-container img {
+            max-width: 100%;
+            max-height: 100%;
+            display: block;
+            margin: auto;
         }
         .content {
-            padding: 10px;
+            padding: 20px;
             margin-bottom: auto;
         }
         .footer {
             padding: 10px;
             background-color: skyblue;
         }
-
     </style>
 </head>
 <script src="popup.js"></script>
@@ -71,11 +85,14 @@
     <div id="container" class="container">
         <div id="popup" class="popup">
             <div id="header" class="header">
-                <div id="header-container" class="header-container" style="display: none;">
-                    <div id="header-title" class="header-title"></div>
+                <div id="header-container" class="header-container">
+                    <div id="header-logo-container" class="header-logo-container">
+                        <img src="../assets/logo.png" alt="logo">
+                    </div>
+
                     <div class="header-subtitle">
                         <div id="header-subtitle-clock" class="header-subtitle-clock">&#128337; </div>
-                        <div id="header-subtitle-text"></div>
+                        <div id="header-subtitle-text" class="header-subtitle-text"></div>
                     </div>
                 </div>
             </div>
