@@ -89,7 +89,7 @@ functions:
           method: get
   squeeze:
     handler: ./dist/squeeze.squeeze
-    timeout: 30
+    timeout: 60
     layers:
       - arn:aws:lambda:us-east-1:247400746985:layer:tldr-layer:1
     events:
@@ -99,45 +99,20 @@ functions:
     environment:
       OPEN_API_KEY: 'openApiKey'
 
-#resources:
-#  Resources:
-#    mySecretsManagerSecret:
-#      Type: AWS::SecretsManager::Secret
-#      Properties:
-#        Name: my-api-secrets
-#        SecretString: '{"openApiKey": "openApiKey"}'
-#
-#    squeezeRole:
-#      Type: AWS::IAM::Role
-#      Properties:
-#        RoleName: squeezeRole
-#        AssumeRolePolicyDocument:
-#          Version: "2012-10-17"
-#          Statement:
-#            - Effect: Allow
-#              Principal:
-#                Service: lambda.amazonaws.com
-#              Action: sts:AssumeRole
-#        ManagedPolicyArns:
-#          - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
-#        Policies:
-#          - PolicyName: secretsManagerAccess
-#            PolicyDocument:
-#              Version: "2012-10-17"
-#              Statement:
-#                - Effect: Allow
-#                  Action:
-#                    - secretsmanager:GetSecretValue
-#                  Resource:
-#                    - !Ref mySecretsManagerSecret
-#
-#    squeezePermission:
-#      Type: AWS::Lambda::Permission
-#      Properties:
-#        FunctionName: squeeze
-#        Action: lambda:InvokeFunction
-#        Principal: apigateway.amazonaws.com
-#        SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:wdfx7nzg1k/*/*/*"
+
+resources:
+  Resources:
+    ProcessingQueue:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: processing-queue
+        MessageRetentionPeriod: 3600  # 1 hour
+        VisibilityTimeout: 60
+
+outputs:
+  ProcessingQueueRef:
+    Value:
+      Ref: ProcessingQueue
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
