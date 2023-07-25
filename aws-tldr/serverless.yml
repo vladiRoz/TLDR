@@ -99,21 +99,6 @@ functions:
     environment:
       OPEN_API_KEY: 'openApiKey'
 
-
-resources:
-  Resources:
-    ProcessingQueue:
-      Type: AWS::SQS::Queue
-      Properties:
-        QueueName: processing-queue
-        MessageRetentionPeriod: 3600  # 1 hour
-        VisibilityTimeout: 60
-
-outputs:
-  ProcessingQueueRef:
-    Value:
-      Ref: ProcessingQueue
-
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
