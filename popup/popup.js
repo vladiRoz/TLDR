@@ -15,22 +15,27 @@ document.addEventListener('DOMContentLoaded', function() {
 
             console.log('res', res);
 
-            const { responseEventType, data } = res;
+            const { success, responseEventType, data } = res;
 
-            if (responseEventType === 'summarizedArticle') {
+            if (success) {
+                if (responseEventType === 'summarizedArticle') {
 
-                const { originalLength, summeryLength, summery } = data;
+                    const { originalLength, summeryLength, summery } = data;
 
-                loadingElement.style.display = 'none';
-                popupElement.style.display = 'flex';
-                header.style.display = 'flex';
+                    loadingElement.style.display = 'none';
+                    popupElement.style.display = 'flex';
+                    header.style.display = 'flex';
 
-                const readingTime = Math.round((originalLength - summeryLength) / 200);
-                document.getElementById('header-subtitle-text').innerText = ` saved ${readingTime} min read`;
-                document.getElementById('content').innerText = summery;
+                    const readingTime = Math.round((originalLength - summeryLength) / 200);
+                    document.getElementById('header-subtitle-text').innerText = ` saved ${readingTime} min read`;
+                    document.getElementById('content').innerText = summery;
 
-            } else if (responseEventType === 'inflight') {
-                console.log('inflight');
+                } else if (responseEventType === 'inflight') {
+                    console.log('inflight');
+                }
+            } else {
+                // TODO add support for failures
+                console.log('** summery failed', data);
             }
         });
     });
