@@ -1,4 +1,4 @@
-import fetch from "node-fetch";
+import { fetchWithRetry } from "./utils";
 export const callOpenApi = async (extractedText, openApiKey) => {
     const url = "https://api.openai.com/v1/chat/completions";
 
@@ -16,13 +16,17 @@ export const callOpenApi = async (extractedText, openApiKey) => {
         body: JSON.stringify(data),
     }
 
-    const response = await fetch(url, params);
+    try {
+      const response = await fetchWithRetry(url, params, 3, 1000);
 
-    const jsonData = await response.json();
-    const { choices } = jsonData;
-    if (choices.length) {
+      const { choices } = response;
+      if (choices.length) {
         const { message: { content }} = choices[0];
         return content;
+      }
+    } catch (e) {
+      console.log('** callOpenApi exception', e);
+      return '';
     }
 
     return '';
