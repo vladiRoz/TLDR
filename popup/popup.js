@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const loadingElement = document.getElementById('loading-container');
     const popupElement = document.getElementById('content');
     const header = document.getElementById('header-container');
+    const content = document.getElementById('content');
 
     chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
         const currentTab = tabs[0];
@@ -17,25 +18,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const { success, responseEventType, data } = res;
 
+            loadingElement.style.display = 'none';
+            popupElement.style.display = 'flex';
+            header.style.display = 'flex';
+
             if (success) {
                 if (responseEventType === 'summarizedArticle') {
-
                     const { originalLength, summeryLength, summery } = data;
-
-                    loadingElement.style.display = 'none';
-                    popupElement.style.display = 'flex';
-                    header.style.display = 'flex';
-
                     const readingTime = Math.round((originalLength - summeryLength) / 200);
                     document.getElementById('header-subtitle-text').innerText = ` saved ${readingTime} min read`;
-                    document.getElementById('content').innerText = summery;
-
-                } else if (responseEventType === 'inflight') {
-                    console.log('inflight');
+                    content.innerText = summery;
                 }
             } else {
-                // TODO add support for failures
-                console.log('** summery failed', data);
+                content.style.display = 'none';
+                document.getElementById('failure-container').style.display = 'flex';
+                document.getElementById('header-subtitle').style.visibility = 'hidden';
             }
         });
     });

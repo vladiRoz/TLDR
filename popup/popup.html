@@ -34,7 +34,13 @@
             display: flex;
             flex: 1;
         }
-        .loading {
+        .failure-container {
+            display: flex;
+            flex: 1;
+            align-items: center;
+            justify-content: center;
+        }
+        .default-text {
             font-size: 1.5em;
             color: #555;
         }
@@ -102,15 +108,20 @@
                         <img src="../assets/logo.png" alt="logo">
                     </div>
 
-                    <div class="header-subtitle">
+                    <div id="header-subtitle" class="header-subtitle">
                         <div id="header-subtitle-clock" class="header-subtitle-clock">&#128337; </div>
                         <div id="header-subtitle-text" class="header-subtitle-text"></div>
                     </div>
                 </div>
             </div>
             <div id="loading-container" class="loading-container">
-                <div id="loading" class="loading">Loading...</div>
+                <div id="loading" class="default-text">Loading...</div>
             </div>
+
+            <div id="failure-container" class="failure-container" style="display: none;">
+                <div id="failure-text" class="default-text">Unable to TLDR</div>
+            </div>
+
             <div id="content" class="content scroll-view" style="display: none;">Loading...</div>
             <div id="footer" class="footer top-shadow"></div>
         </div>

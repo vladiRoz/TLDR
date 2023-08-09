@@ -32,14 +32,14 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
                     sendResponse({
                         success,
                         responseEventType: 'summarizedArticle',
-                        data: success ? response.data : response.data.message,
+                        data: success ? response.data : { message: response.data.message },
                     });
                 } else {
-                    sendResponse({ success: false, data: 'failure1' });
+                    sendResponse({ success: false, data: { message: 'failure1' } });
                 }
             }).catch((reason) => {
                 console.log('** catch', reason);
-                sendResponse({ success: false, data: 'failure2' });
+                sendResponse({ success: false, data: { message: 'failure2' } });
             });
 
         return true;
@@ -61,10 +61,17 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 //
 //         console.log('** sending demo response back', response);
 //
+//             // sendResponse({
+//             //     success: true,
+//             //     responseEventType: 'summarizedArticle',
+//             //     data: response.data,
+//             // });
+//
 //             sendResponse({
-//                 success: true,
-//                 responseEventType: 'summarizedArticle',
-//                 data: response.data,
+//                 success: false,
+//                 data: {
+//                     message: "failure"
+//                 },
 //             });
 //
 //         }, 1000);

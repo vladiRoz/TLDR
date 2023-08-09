@@ -4,15 +4,12 @@ todos
 
 1. react and typescript
 2. ~~new ui, popup with summery~~
-3. microsoft for startups give 2500$ to open ai (enroll not with gmail email)
 4. ~~open api failures (retry mechanism with sqs/sns)~~
-5. limit usage.
+5. limit usage (waf atm).
 6. caching.
-7. 
-8. 
-   Monitoring and Alarms: Set up CloudWatch alarms to monitor the API usage and detect sudden spikes or anomalies in traffic. This can help you respond quickly to potential abuse.
-
-
+7. Monitoring and Alarms: Set up CloudWatch alarms to monitor the API usage and detect sudden spikes or anomalies in traffic.
+8. add alpha version
+    
 
 Road map
 
