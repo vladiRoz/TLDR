@@ -20,6 +20,7 @@
     "@mozilla/readability": "^0.4.4",
     "dom-readability": "^1.0.2",
     "domino": "^2.1.6",
+    "got": "^10.4.0",
     "jsdom": "^22.1.0",
     "node-fetch": "2.6.1"
   },

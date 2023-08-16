@@ -16,6 +16,9 @@ const secret_name = "my-api-secrets";
 // moores
 // sls invoke local -f squeeze --data '{"url":"https://moores.samaltman.com"}'
 
+// medium
+// sls invoke local -f squeeze --data '{"url":"https://medium.com/@HILOofficial/why-choose-hilo-exploring-the-advantages-of-hilo-token-and-the-binary-prediction-platform-d5f73d6c10e6"}'
+
 export async function squeeze(event) {
 
     let url;
