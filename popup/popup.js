@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const popupElement = document.getElementById('content');
     const header = document.getElementById('header-container');
     const content = document.getElementById('content');
+    document.getElementById('contact-support').addEventListener("click", launchEmailApp);
 
     chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
         const currentTab = tabs[0];
@@ -37,4 +38,21 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+const launchEmailApp = () => {
+    chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+        const currentTab = tabs[0];
+        const url = currentTab.url;
+
+        const emailAddress = 'josegalavez87@gmail.com';
+        const subject = 'TLDR.ai support';
+        const body = url;
+
+        const mailtoUrl = 'mailto:' + encodeURIComponent(emailAddress) +
+            '?subject=' + encodeURIComponent(subject) +
+            '&body=' + encodeURIComponent(body);
+
+        chrome.tabs.create({ url: mailtoUrl });
+    });
+}
 

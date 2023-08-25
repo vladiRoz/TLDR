@@ -75,6 +75,18 @@
             width: 400px;
             height: 300px;
             overflow: hidden;
+            position: relative;
+        }
+        .alpha-text {
+            position: absolute;
+            top: 15px;
+            right: 10px;
+            background-color: rgba(255, 0, 0, 0.7);
+            color: white;
+            padding: 5px 10px;
+            font-size: 8px;
+            font-weight: bold;
+            border-radius: 20px;
         }
         .header-logo-container img {
             max-width: 100%;
@@ -83,9 +95,13 @@
             margin: auto;
         }
         .footer {
+            position: relative;
             height: 3em;
             padding: 10px;
             background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
         .bottom-shadow {
             box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
@@ -95,6 +111,12 @@
         }
         .scroll-view {
             overflow: auto;
+        }
+        #contact-support {
+            text-decoration: underline;
+            color: #3498db;
+            cursor: pointer;
+            user-select: none;
         }
     </style>
 </head>
@@ -123,7 +145,10 @@
             </div>
 
             <div id="content" class="content scroll-view" style="display: none;">Loading...</div>
-            <div id="footer" class="footer top-shadow"></div>
+            <div id="footer" class="footer top-shadow">
+                <div>No TLDR? <span id="contact-support">Contact support</span></div>
+                <span class="alpha-text">ALPHA</span>
+            </div>
         </div>
     </div>
 </body>
