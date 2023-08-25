@@ -9,8 +9,6 @@ todos
 6. caching.
 7. Monitoring and Alarms: Set up CloudWatch alarms to monitor the API usage and detect sudden spikes or anomalies in traffic.
 9. add new lambda layer (and read about auto update).
-8. add alpha version
-10. add contact support
     
 
 Road map
