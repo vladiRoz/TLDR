@@ -14,3 +14,4 @@ todos
 Road map
 
 1. Upload white papers
+2. payments (maybe needs a website)
