@@ -13,69 +13,65 @@ const summerize = (url) => {
 
     return fetch(squeezeUrl, params);
 }
-
-const sendMessageToTab = async (tab, message) => {
-    return chrome.tabs.sendMessage(tab.id, message);
-}
-
-// chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
-//     if (message.eventType === 'summery') {
-//
-//         const {url} = message.data;
-//         summerize(url)
-//             .then((res) => {
-//                 return res.json();
-//             }).then((response) => {
-//                 console.log('** response', response);
-//                 if (response) {
-//                     const { success } = response;
-//                     sendResponse({
-//                         success,
-//                         responseEventType: 'summarizedArticle',
-//                         data: success ? response.data : { message: response.data.message },
-//                     });
-//                 } else {
-//                     sendResponse({ success: false, data: { message: 'failure1' } });
-//                 }
-//             }).catch((reason) => {
-//                 console.log('** catch', reason);
-//                 sendResponse({ success: false, data: { message: 'failure2' } });
-//             });
-//
-//         return true;
-//     }
-// });
-
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     if (message.eventType === 'summery') {
 
-        setTimeout(() => {
-            const response = {
-                success: true,
-                data: {
-                    originalLength: 2000,
-                    summeryLength: 200,
-                    summery: 'DEMO sending to content The recent slide of Deutsche Bank shares has reignited concerns among investors about the global banking system, leading some to speculate that we may be facing another financial crisis. This time, however, we are more prepared; commercial banks are too big to fail and governments will undoubtedly bail them out. Bitcoin, with its limited supply and resistance against seizure, is seen as a viable alternative to fiat currencies that are inflating away. The recent rise in bitcoin\'s price, particularly from early March, may be a result of investors seeking a hedge against the fall of the US dollar, as well as increasing adoption in the developing world. But widespread adoption will take time, and it\'s crucial for bitcoin\'s advocates to focus on educating different audiences about its advantages and practical uses. The goal should be slow and steady adoption, rather than a sudden surge that could lead to widespread value destruction and government intervention.'
+        const {url} = message.data;
+        summerize(url)
+            .then((res) => {
+                return res.json();
+            }).then((response) => {
+                console.log('** response', response);
+                if (response) {
+                    const { success } = response;
+                    sendResponse({
+                        success,
+                        responseEventType: 'summarizedArticle',
+                        data: success ? response.data : { message: response.data.message },
+                    });
+                } else {
+                    sendResponse({ success: false, data: { message: 'failure1' } });
                 }
-            };
-
-        console.log('** sending demo response back', response);
-
-            sendResponse({
-                success: true,
-                responseEventType: 'summarizedArticle',
-                data: response.data,
+            }).catch((reason) => {
+                console.log('** catch', reason);
+                sendResponse({ success: false, data: { message: 'failure2' } });
             });
-
-            // sendResponse({
-            //     success: false,
-            //     data: {
-            //         message: "failure"
-            //     },
-            // });
-
-        }, 1000);
 
         return true;
     }
 });
+
+// DEVELOPMENT DUMMY DEMO
+// chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+//     if (message.eventType === 'summery') {
+//
+//         setTimeout(() => {
+//             const response = {
+//                 success: true,
+//                 data: {
+//                     originalLength: 2000,
+//                     summeryLength: 200,
+//                     summery: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'
+//                 }
+//             };
+//
+//         console.log('** sending demo response back', response);
+//
+//             sendResponse({
+//                 success: true,
+//                 responseEventType: 'summarizedArticle',
+//                 data: response.data,
+//             });
+//
+//             // sendResponse({
+//             //     success: false,
+//             //     data: {
+//             //         message: "failure"
+//             //     },
+//             // });
+//
+//         }, 1000);
+//
+//         return true;
+//     }
+// });

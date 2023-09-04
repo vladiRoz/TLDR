@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Squeezy",
-  "description": "Enable focus mode on Chrome's official Extensions and Chrome Web Store documentation.",
-  "version": "1.0",
+  "name": "TLDR.AI",
+  "description": "Say goodbye to information overload",
+  "version": "0.0.1",
   "icons": {
     "16": "images/icon-16.png",
     "32": "images/icon-32.png",
@@ -23,14 +23,11 @@
   },
   "content_scripts": [
     {
-      "js": ["scripts/content.js", "bundle.js"],
+      "js": ["scripts/content.js"],
       "matches": ["<all_urls>"]
     }
   ],
-  "host_permissions": [
-    "https://api.openai.com/v1/chat/*"
-  ],
-  "permissions": ["scripting", "activeTab", "tabs"],
+  "permissions": ["activeTab"],
   "commands": {
     "_execute_action": {
       "suggested_key": {
