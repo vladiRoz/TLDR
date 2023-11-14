@@ -1,7 +1,7 @@
-import {createDocument} from "domino";
 import fetch from 'node-fetch';
 import {Readability} from "@mozilla/readability";
 import {JSDOM} from 'jsdom';
+import { createDocument } from 'domino';
 const fs = require('fs');
 const got = require('got');
 

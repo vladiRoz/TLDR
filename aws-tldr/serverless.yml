@@ -82,7 +82,7 @@ functions:
   hello:
     handler: ./dist/handler.hello
     layers:
-      - arn:aws:lambda:us-east-1:247400746985:layer:tldr-layer:1
+      - arn:aws:lambda:us-east-1:247400746985:layer:tldr-layer:3
     events:
       - httpApi:
           path: /
@@ -91,7 +91,7 @@ functions:
     handler: ./dist/squeeze.squeeze
     timeout: 60
     layers:
-      - arn:aws:lambda:us-east-1:247400746985:layer:tldr-layer:1
+      - arn:aws:lambda:us-east-1:247400746985:layer:tldr-layer:3
     events:
       - httpApi:
           path: /squeeze

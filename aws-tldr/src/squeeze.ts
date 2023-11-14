@@ -2,6 +2,9 @@ import { extractMainContent } from "./scripts/utils";
 import  { callOpenApi } from "./scripts/utils.openai";
 import { SecretsManagerClient, GetSecretValueCommand } from "@aws-sdk/client-secrets-manager";
 
+// listing url
+// https://chromewebstore.google.com/detail/tldrai/ipkcbkclehnfbadlojaoamkjcohjpcmb?pli=1
+
 const secret_name = "my-api-secrets";
 
 // btc article
