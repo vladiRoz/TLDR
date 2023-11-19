@@ -65,6 +65,13 @@ provider:
 #              - - "arn:aws:s3:::"
 #                - "Ref" : "ServerlessDeploymentBucket"
 #                - "/*"
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action: 'lambda:PutFunctionConcurrency'
+          Resource: 'arn:aws:lambda:us-east-1:247400746985:function:aws-squeezy-dev-squeeze'
+
 
 # you can define service wide environment variables here
 #  environment:
@@ -98,6 +105,16 @@ functions:
           method: post
     environment:
       OPEN_API_KEY: 'openApiKey'
+  disableSqueeze:
+    handler: ./dist/disableSqueeze.disableSqueeze
+    timeout: 60
+    layers:
+      - arn:aws:lambda:us-east-1:247400746985:layer:tldr-layer:3
+    events:
+      - sns:
+          arn: arn:aws:sns:us-east-1:247400746985:sqeeze_invocations_count_alarm
+
+# Resource: arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service}-${self:provider.stage}-squeeze
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
