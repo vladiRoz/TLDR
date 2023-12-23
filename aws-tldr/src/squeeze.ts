@@ -1,4 +1,4 @@
-import { extractMainContent } from "./scripts/utils";
+import {extractMainContent, truncateString} from "./scripts/utils";
 import  { callOpenApi } from "./scripts/utils.openai";
 import { SecretsManagerClient, GetSecretValueCommand } from "@aws-sdk/client-secrets-manager";
 
@@ -21,6 +21,8 @@ const secret_name = "my-api-secrets";
 
 // medium
 // sls invoke local -f squeeze --data '{"url":"https://medium.com/@HILOofficial/why-choose-hilo-exploring-the-advantages-of-hilo-token-and-the-binary-prediction-platform-d5f73d6c10e6"}'
+
+// sls invoke local -f squeeze --data '{"url":"https://pluralistic.net/2023/12/19/bubblenomics"}'
 
 export async function squeeze(event) {
 
@@ -89,6 +91,7 @@ export async function squeeze(event) {
     let extractedText;
     try {
       extractedText = await extractMainContent(url);
+      extractedText = truncateString(extractedText);
     } catch (e) {
       console.log('extractMainContent error', e);
         return {
@@ -106,11 +109,29 @@ export async function squeeze(event) {
         };
     }
 
-    const summery = await callOpenApi(extractedText, openApiKey);
+    let summery;
+    try {
+      summery = await callOpenApi(extractedText, openApiKey);
+    } catch (e) {
+      console.log('extractMainContent error', e.message);
+      return {
+        statusCode: 400,
+        body: JSON.stringify(
+          {
+            success: false,
+            data: {
+              message: e.message,
+            },
+          },
+          null,
+          2
+        ),
+      };
+    }
 
     const wordMatchRegExp = /[^\s]+/g;
 
-    const extractedTextWords = extractedText.matchAll(wordMatchRegExp);
+    const extractedTextWords = extractedText.matchAll(wordMatchRegExp)
     const extractedTextWordsCount = [...extractedTextWords].length;
 
     const summeryWords = summery.matchAll(wordMatchRegExp);

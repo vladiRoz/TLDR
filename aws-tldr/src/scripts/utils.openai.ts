@@ -16,18 +16,13 @@ export const callOpenApi = async (extractedText, openApiKey) => {
         body: JSON.stringify(data),
     }
 
-    try {
-      const response = await fetchWithRetry(url, params, 3, 1000);
+    const response = await fetchWithRetry(url, params, 3, 1000);
 
-      const { choices } = response;
-      if (choices.length) {
-        const { message: { content }} = choices[0];
-        return content;
-      }
-    } catch (e) {
-      console.log('** callOpenApi exception', e);
-      return '';
+    const { choices } = response;
+    if (choices.length) {
+      const { message: { content }} = choices[0];
+      return content;
     }
 
-    return '';
+    throw new Error('Unable to TLDR');
 }

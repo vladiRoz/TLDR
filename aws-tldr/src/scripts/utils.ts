@@ -40,9 +40,10 @@ export const fetchWithRetry = async (url, options, maxRetries, retryInterval) =>
       if (response.ok) {
         return response.json();
       } else {
-        // Optionally, you can handle non-2xx responses and retry if needed.
-        console.log('Non-2xx response:', response.status);
-        throw new Error('Non-2xx response');
+        const error = await response.json();
+        const { error: innerError } = error;
+        console.error('error', innerError.message);
+        throw new Error();
       }
     } catch (error) {
       console.error('retrying retries: ', retries);
@@ -56,7 +57,7 @@ export const fetchWithRetry = async (url, options, maxRetries, retryInterval) =>
     }
   }
 
-  throw new Error('Max retries exceeded.');
+  throw new Error('Unable to TLDR');
 }
 
 const saveToFile = (html) => {
@@ -73,6 +74,16 @@ const fetchMyDocument = async (url) => {
   let response = await fetch(url);
   // check status
   return response.text(); // Replaces body with response
+}
+
+export const truncateString = (input: string): string => {
+  const maxLength = 4096;
+
+  if (input.length > maxLength) {
+    return input.slice(0, maxLength);
+  } else {
+    return input;
+  }
 }
 
 
