@@ -44,6 +44,8 @@ provider:
   runtime: nodejs16.x
   profile: serverlessUser
   region: us-east-1
+  environment:
+    NODE_OPTIONS: "--require ./config/bootstrap.js"
 
 # you can overwrite defaults here
 #  stage: dev
